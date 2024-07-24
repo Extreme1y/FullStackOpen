@@ -31,8 +31,8 @@ const requestLogger = (request, response, next) => {
 }
 
 app.use(express.json())
-app.use(express.static('dist'))
 app.use(requestLogger)
+app.use(express.static('dist'))
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
