@@ -15,7 +15,6 @@ morgan.token('personDetails', function (req, res) {
 });
 
 
-
 let persons = [
     {
         id: "1",
@@ -40,7 +39,6 @@ let persons = [
 ]
 
 app.use(express.static('dist'))
-
 
 
 const cors = require('cors')
@@ -107,6 +105,20 @@ app.post('/api/persons', (request, response) => {
     response.json(person)
 })
 
+
+app.put('/api/persons/:id', (request, response) => {
+    const id = request.params.id
+    const {number} = request.body
+
+    const person = persons.find(person => person.id === id)
+    if (!person) {
+        return response.status(404).json({error : 'person not found'})
+    }
+
+    const updatedPerson = {...person, number}
+    persons = persons.map(p => p.id !== id ? p : updatedPerson)
+    response.json(updatedPerson)
+})
 
 app.delete('/api/persons/:id', (request, response) => {
     const id = request.params.id
