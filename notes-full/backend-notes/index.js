@@ -43,7 +43,7 @@ app.use(requestLogger)
 
 
 app.get('/', (request, response) => {
-    response.json(notes)
+    response.send('<h1>started</h1>')
 })
 
 app.get('/api/notes', (request, response) => {

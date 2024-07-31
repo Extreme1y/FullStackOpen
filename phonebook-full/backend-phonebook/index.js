@@ -27,13 +27,7 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan('tiny'))
 
-const generateId = () => {
-    if (persons.length === 0) {
-        return "1"; // Start IDs from "1" if the list is empty
-    }
-    const maxId = persons.reduce((max, person) => Math.max(max, Number(person.id)), 0);
-    return String(maxId + 1);
-}
+
 
 
 app.get('/', (request, response) => {
