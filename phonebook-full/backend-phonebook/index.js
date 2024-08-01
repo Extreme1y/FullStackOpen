@@ -28,8 +28,6 @@ app.use(express.json())
 app.use(morgan('tiny'))
 
 
-
-
 app.get('/', (request, response) => {
     response.send('<h1>started</h1>')
 })
@@ -57,7 +55,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 
 app.use(morgan(':personDetails'));
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
 
 
@@ -68,36 +66,26 @@ app.post('/api/persons', (request, response) => {
     }
 
 
-    const person = new Person ({
+    const person = new Person({
         name: body.name,
         number: body.number
     })
 
 
-
-    person.save().then(saved => {
-        response.json(saved)
-    })
+    person.save()
+        .then(saved => {
+            response.json(saved)
+        })
+        .catch(error => next(error))
 
 
 })
 
 
 app.put('/api/persons/:id', (request, response, next) => {
-    const body = request.body
+    const {name, number} = request.body
 
-    if (!body.name || !body.number) {
-        return response.status(400).json({
-            error: 'content missing'
-        })
-    }
-
-    const person = {
-        name: body.name,
-        number: body.number
-    }
-
-    Person.findByIdAndUpdate(request.params.id, person, {new: true})
+    Person.findByIdAndUpdate(request.params.id, {name, number}, {new: true, runValidators: true, context: 'query'})
         .then(updated => {
             response.json(updated)
         })
@@ -117,13 +105,14 @@ const errorHandler = (error, request, response, next) => {
 
     if (error.name === 'CastError') {
         return response.status(400).send({error: 'malformatted id'})
+    } else if (error.name === 'ValidationError') {
+        return response.status(400).json({error: error.message})
     }
 
     next(error)
 }
 
 app.use(errorHandler)
-
 
 
 const PORT = process.env.PORT
