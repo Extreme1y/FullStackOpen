@@ -131,6 +131,30 @@ test('a blog can be deleted', async () => {
     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
 })
 
+
+test('a blog like number can be changed', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+
+    const blogToChange = blogsAtStart[0]
+
+    const updatedBlogData = {likes : blogToChange.likes + 1}
+
+    const resultBlog = await api
+        .put(`/api/blogs/${blogToChange.id}`)
+        .send(updatedBlogData)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+    //MAKING SURE THE BLOG WAS ACTUALLY UPDATED
+    assert.strictEqual(resultBlog.body.likes, updatedBlogData.likes)
+
+
+    //MAKING SURE THE UPDATED BLOG IS UPLOADED TO DB
+    const blogsAtEnd = await helper.blogsInDb()
+    const updatedBlog = blogsAtEnd.find(b => b.id === blogToChange.id)
+    assert.strictEqual(updatedBlog.likes, updatedBlogData.likes)
+
+})
 after(async () => {
     await mongoose.connection.close()
 })
