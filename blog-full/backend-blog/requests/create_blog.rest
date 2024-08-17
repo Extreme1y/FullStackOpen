@@ -1,9 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNpbCIsImlkIjoiNjZiY2VkNmRiMDJiNmQ3NzdkODIyODg0IiwiaWF0IjoxNzIzOTAwMDUwLCJleHAiOjE3MjM5MDM2NTB9.CPGkzRROj15VxBEpgMiqLq8XHEFx6aIrjtcu2YbdxBs
 
 {
-  "title": "Second blog ever",
-  "author": "ME",
-  "url": "http://localhost:3003/api/blogs",
+  "title": "I'M LOSING MY BALLS OVER HERE!",
+  "author": "Sil",
+  "url": "https://www.tiktok.com/@jkellsfilms/video/7200907562236005675",
   "likes": 2
 }
