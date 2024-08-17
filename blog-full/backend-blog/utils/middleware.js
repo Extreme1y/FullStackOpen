@@ -1,5 +1,6 @@
 const logger = require('./logger')
-const {nonExistingId} = require("../tests/test_helper");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
 const requestLogger = (request, response, next) => {
     logger.info('Method:', request.method)
@@ -31,12 +32,12 @@ const errorHandler = (error, request, response, next) => {
     next(error)
 }
 
+
 const tokenExtractor = (request, response, next) => {
     const authorization = request.get('authorization')
     if (authorization && authorization.startsWith('Bearer ')) {
         request.token = authorization.replace('Bearer ', '')
-    }
-    else {
+    } else {
         request.token = null
     }
 
@@ -44,9 +45,10 @@ const tokenExtractor = (request, response, next) => {
 }
 
 
+
 module.exports = {
     requestLogger,
     unknownEndpoint,
     errorHandler,
-    tokenExtractor
+    tokenExtractor,
 }

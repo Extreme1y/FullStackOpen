@@ -1,6 +1,6 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNpbCIsImlkIjoiNjZiY2VkNmRiMDJiNmQ3NzdkODIyODg0IiwiaWF0IjoxNzIzOTAwMDUwLCJleHAiOjE3MjM5MDM2NTB9.CPGkzRROj15VxBEpgMiqLq8XHEFx6aIrjtcu2YbdxBs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNpbCIsImlkIjoiNjZiY2VkNmRiMDJiNmQ3NzdkODIyODg0IiwiaWF0IjoxNzIzOTEzMTI3LCJleHAiOjE3MjM5MTY3Mjd9.eOG7hbxUtcQIVJl1PG2gx8qfqRWn5wP2s0Bfzzc9E0U
 
 {
   "title": "I'M LOSING MY BALLS OVER HERE!",
